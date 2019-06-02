@@ -7,10 +7,6 @@ import java.sql.*;
 import java.util.Arrays;
 
 public class UserDao {
-    private final String URL =
-            "jdbc:mysql://localhost:3306/java_warsztat_2?useSSL=false&characterEncoding=utf8";
-    private final String USER = "root";
-    private final String PASSWORD = "coderslab";
 
     private static final String CREATE_USER_QUERY =
             "INSERT INTO user(name, email, password, user_group_id) VALUES (?, ?, ? ,?)";
@@ -44,8 +40,6 @@ public class UserDao {
             return null;
         }
     }
-
-
 
     public User read(int userId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
@@ -95,6 +89,7 @@ public class UserDao {
         User[] tmpUsers = Arrays.copyOf(users, users.length + 1);
         tmpUsers[users.length] = user;
         return tmpUsers;
+
     }
 
     public User[] findAll() {
@@ -114,9 +109,6 @@ public class UserDao {
             return users;
         } catch (SQLException e) {
             e.printStackTrace(); return null;
-        }}
-
-
-
-
+        }
+    }
 }

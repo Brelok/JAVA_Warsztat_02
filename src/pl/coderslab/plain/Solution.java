@@ -8,25 +8,83 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Solution {
+    private int id;
+    private String created;
+    private String updated;
+    private String description;
+    private int excersiseId;
+    private int userId;
 
+    public Solution () {
 
-    public Solution[] findAllByUserId (int userId) {//copy z userDAO = coś zmoenić
-        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
-            User[] users = new User[0];
-            PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setUserGroupId(resultSet.getInt("user_group_id"));
-                users = addToArray(user, users);
-            }
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace(); return null;
-        }}
+    }
+
+    public Solution(int id, String created, String updated, String description, int excersiseId, int userId) {
+        this.id = id;
+        this.created = created;
+        this.updated = updated;
+        this.description = description;
+        this.excersiseId = excersiseId;
+        this.userId = userId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getExcersiseId() {
+        return excersiseId;
+    }
+
+    public void setExcersiseId(int excersiseId) {
+        this.excersiseId = excersiseId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Solution{" +
+                "id=" + id +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", description='" + description + '\'' +
+                ", excersiseId=" + excersiseId +
+                ", userId=" + userId +
+                '}';
     }
 }
