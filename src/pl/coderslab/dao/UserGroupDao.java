@@ -1,7 +1,5 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.plain.Solution;
-import pl.coderslab.plain.User;
 import pl.coderslab.plain.UserGroup;
 import pl.coderslab.utlis.DatabaseUtils;
 
