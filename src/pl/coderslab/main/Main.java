@@ -12,9 +12,12 @@ import pl.coderslab.plain.UserGroup;
 import java.sql.*;
 import java.util.Arrays;
 
+import static pl.coderslab.dao.UserDao.userStart;
+
+
 public class Main {
     public static void main(String[] args) {
-        User user = new User("Jan Kowalski", "Jan.Kowalski@gmail.com", "tajne", 1);
+//        User user = new User("Jan Kowalski", "Jan.Kowalski@gmail.com", "tajne", 1);
 //        User user1 = new User("Adam Kowalski", "adam.Kowalski@gmail.com", "tajne", 1);
 //        User user2 = new User("Robert Kowalski", "robert.Kowalski@gmail.com", "tajne", 1);
 //
@@ -54,33 +57,37 @@ public class Main {
 //        userDao.delete(user1.getId());
 //        userDao.delete(user2.getId());
 
-
-        Solution solution = new Solution("2019-09-10", "2019-09-10", "świetne rozwiązanie", 1, 29);
-        Solution solution1= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani1e", 1, 30);
-        Solution solution2= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani122e", 1, 30);
-        SolutionDao solutionDao = new SolutionDao();
-
-        int id = solution.getId();
-        solutionDao.create(solution2);
+//
+//        Solution solution = new Solution("2019-09-10", "2019-09-10", "świetne rozwiązanie", 1, 29);
+//        Solution solution1= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani1e", 1, 30);
+//        Solution solution2= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani122e", 1, 30);
+//        SolutionDao solutionDao = new SolutionDao();
+//
+//        int id = solution.getId();
+//        solutionDao.create(solution2);
 
 //        solutionDao.delete(id);
 
-        System.out.println(solutionDao.findAllBySolutionId(id));
+//        System.out.println(solutionDao.findAllBySolutionId(id));
+//
+//        Exercise exercise = new Exercise("rkłdaf", "adfadf");
+//
+//        ExerciseDao exerciseDao = new ExerciseDao();
+//        System.out.println(exerciseDao.read(2));
+//        exerciseDao.delete(2);
+//
+//        UserGroup userGroup = new UserGroup("the best");
+//        UserGroupDao userGroupDao = new UserGroupDao();
+//        userGroupDao.create(userGroup);
+//        System.out.println(userGroupDao.read(2));
+//        userGroupDao.findAllBySolutionId(2);
+//        System.out.println(solution.findAllByUserId(30));
+//        System.out.println(solution.findAllByExerciseId(1));
+//        System.out.println(user.findAll(1));
 
-        Exercise exercise = new Exercise("rkłdaf", "adfadf");
+        UserDao user = new UserDao();
 
-        ExerciseDao exerciseDao = new ExerciseDao();
-        System.out.println(exerciseDao.read(2));
-        exerciseDao.delete(2);
-
-        UserGroup userGroup = new UserGroup("the best");
-        UserGroupDao userGroupDao = new UserGroupDao();
-        userGroupDao.create(userGroup);
-        System.out.println(userGroupDao.read(2));
-        userGroupDao.findAllBySolutionId(2);
-        System.out.println(solution.findAllByUserId(30));
-        System.out.println(solution.findAllByExerciseId(1));
-        System.out.println(user.findAll(1));
+          userStart();
 
 
 

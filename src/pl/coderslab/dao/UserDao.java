@@ -5,6 +5,7 @@ import pl.coderslab.utlis.DatabaseUtils;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class UserDao {
 
@@ -108,7 +109,75 @@ public class UserDao {
             }
             return users;
         } catch (SQLException e) {
-            e.printStackTrace(); return null;
+            e.printStackTrace();
+            return null;
         }
+    }
+         public static void userStart () {
+           try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+               String input = null;
+               do {
+               User[] users = new User[0];
+               PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS_QUERY);
+               ResultSet resultSet = statement.executeQuery();
+
+                   System.out.println("Oto lista wszystkich użytkowników");
+                   DatabaseUtils.print(resultSet, "id", "name", "email", "password", "user_group_id");
+                   System.out.println("Wybierz jedną z opcji: \n" +
+                           "\"add\" - dodanie użytkownika \n" +
+                           "\"edit\" - edycja użytkownika \n" +
+                           "\"delete\" - usunięcie użytkownika\n" +
+                           "\"quit\" - zakończenie programu");
+                   Scanner scanner = new Scanner(System.in);
+                   input = scanner.nextLine();
+                   if (input.equals("add")){
+                       User user = new User();
+                       System.out.print("Podaj imię: ");
+                       user.setName(scanner.nextLine());
+                       System.out.print("Podaj email: ");
+                       user.setEmail(scanner.nextLine());
+                       System.out.print("Podaj hasło: ");
+                       user.setPassword(scanner.nextLine());
+                       System.out.print("Podaj ID groupy: ");
+                       user.setUserGroupId(scanner.nextInt());
+
+                       UserDao userDao = new UserDao();
+                       userDao.create(user);
+
+                   } else if (input.equals("edit")){
+                       User user = new User();
+                       System.out.print("Podaj id użytkownika do zmiany: ");
+                       user.setId(scanner.nextInt());
+                       scanner.nextLine();
+                       System.out.print("Zmień imię: ");
+                       user.setName(scanner.nextLine());
+                       System.out.print("Zmień email: ");
+                       user.setEmail(scanner.nextLine());
+                       System.out.print("Zmień hasło: ");
+                       user.setPassword(scanner.nextLine());
+                       System.out.print("Zmień ID groupy: ");
+                       user.setUserGroupId(scanner.nextInt());
+
+                       UserDao userDao = new UserDao();
+                       userDao.update(user);
+
+                   } else if (input.equals("delete")){
+                       User user = new User();
+                       System.out.print("Podaj ID użytkownika, którego chcesz usunąć: ");
+                       user.setId(scanner.nextInt());
+                       UserDao userDao = new UserDao();
+                       userDao.delete(user.getId());
+                   } else {
+                       System.out.println("Niepoprawne polecenie\n");
+                   }
+
+
+               } while (!input.equals("quit"));
+
+           }catch (SQLException e ) {
+               e.printStackTrace();
+         }
+
+
     }
 }
