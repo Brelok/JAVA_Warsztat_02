@@ -50,15 +50,18 @@ public class Main {
 //            System.out.println(myUser);
 //        }
 
-//        userDao.delete(id);
+//        userDao.delete(id)
 //        userDao.delete(user1.getId());
 //        userDao.delete(user2.getId());
 
 
         Solution solution = new Solution("2019-09-10", "2019-09-10", "świetne rozwiązanie", 1, 29);
+        Solution solution1= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani1e", 1, 30);
+        Solution solution2= new Solution("2019-09-10", "2019-09-10", "świetne rozwiązani122e", 1, 30);
         SolutionDao solutionDao = new SolutionDao();
 
         int id = solution.getId();
+        solutionDao.create(solution2);
 
 //        solutionDao.delete(id);
 
@@ -76,6 +79,7 @@ public class Main {
         userGroupDao.create(userGroup);
         System.out.println(userGroupDao.read(2));
         userGroupDao.findAllBySolutionId(2);
+        System.out.println(solutionDao.findAllByUserId(30));
 
 
 
