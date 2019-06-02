@@ -117,7 +117,6 @@ public class UserDao {
            try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
                String input = null;
                do {
-               User[] users = new User[0];
                PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS_QUERY);
                ResultSet resultSet = statement.executeQuery();
 

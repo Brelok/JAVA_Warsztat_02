@@ -12,7 +12,9 @@ import pl.coderslab.plain.UserGroup;
 import java.sql.*;
 import java.util.Arrays;
 
+import static pl.coderslab.dao.ExerciseDao.exerciseStart;
 import static pl.coderslab.dao.UserDao.userStart;
+import static pl.coderslab.dao.UserGroupDao.userGroupStart;
 
 
 public class Main {
@@ -85,9 +87,11 @@ public class Main {
 //        System.out.println(solution.findAllByExerciseId(1));
 //        System.out.println(user.findAll(1));
 
-        UserDao user = new UserDao();
 
-          userStart();
+
+//          userStart();
+//        exerciseStart();
+        userGroupStart();
 
 
 

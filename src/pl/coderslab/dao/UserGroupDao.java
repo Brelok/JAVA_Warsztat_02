@@ -1,10 +1,12 @@
 package pl.coderslab.dao;
 
+import pl.coderslab.plain.Exercise;
 import pl.coderslab.plain.UserGroup;
 import pl.coderslab.utlis.DatabaseUtils;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class UserGroupDao {
 
@@ -16,7 +18,7 @@ public class UserGroupDao {
             "UPDATE user_group SET name = ? where id = ?";
         private static final String DELETE_USER_GROUP_QUERY =
             "DELETE FROM user_group WHERE id = ?";
-        private static final String FIND_ALL_USER_GROUP_BY_USER_ID_QUERY =
+        private static final String FIND_ALL_USER_GROUP_BY_USER_GROUP_ID_QUERY =
             "SELECT * FROM user_group";
 
          public UserGroup create(UserGroup userGroup) {
@@ -80,10 +82,10 @@ public class UserGroupDao {
 
     }
 
-    public UserGroup[] findAllBySolutionId (int userGroupId) {
+    public UserGroup[] findAllByUserGroupId (int userGroupId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             UserGroup [] userGroups = new UserGroup[0];
-            PreparedStatement statement = conn.prepareStatement(FIND_ALL_USER_GROUP_BY_USER_ID_QUERY);
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_USER_GROUP_BY_USER_GROUP_ID_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 UserGroup userGroup = new UserGroup();
@@ -97,5 +99,57 @@ public class UserGroupDao {
         }
     }
 
+    public static void userGroupStart () {
+           try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+               String input = null;
+               do {
+               PreparedStatement statement = conn.prepareStatement(FIND_ALL_USER_GROUP_BY_USER_GROUP_ID_QUERY);
+               ResultSet resultSet = statement.executeQuery();
+
+                   System.out.println("Oto lista wszystkich grup");
+                   DatabaseUtils.print(resultSet, "id", "name");
+                   System.out.println("Wybierz jedną z opcji: \n" +
+                           "\"add\" - dodanie nowej grupy \n" +
+                           "\"edit\" - edycja grupy \n" +
+                           "\"delete\" - usunięcie grupy\n" +
+                           "\"quit\" - zakończenie programu");
+                   Scanner scanner = new Scanner(System.in);
+                   input = scanner.nextLine();
+                   if (input.equals("add")){
+                       UserGroup userGroup = new UserGroup();
+                       System.out.print("Podaj nazwę: ");
+                       userGroup.setName(scanner.nextLine());
+
+                       UserGroupDao userGroupDao = new UserGroupDao();
+                       userGroupDao.create(userGroup);
+
+                   } else if (input.equals("edit")){
+                       UserGroup userGroup = new UserGroup();
+                       System.out.print("Podaj id grupy do zmiany: ");
+                       userGroup.setId(scanner.nextInt());
+                       scanner.nextLine();
+
+                       UserGroupDao userGroupDao = new UserGroupDao();
+                       userGroupDao.update(userGroup);
+
+                   } else if (input.equals("delete")){
+                       UserGroup userGroup = new UserGroup();
+                       System.out.print("Podaj ID grupy, którą chcesz usunąć: ");
+                       userGroup.setId(scanner.nextInt());
+
+                       UserGroupDao userGroupDao = new UserGroupDao();
+                       userGroupDao.delete(userGroup.getId());
+                   } else {
+                       System.out.println("Niepoprawne polecenie\n");
+                   }
+
+               } while (!input.equals("quit"));
+
+           }catch (SQLException e ) {
+               e.printStackTrace();
+         }
+
+
+    }
 
 }

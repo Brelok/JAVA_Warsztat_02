@@ -1,10 +1,12 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.Exercise;
+import pl.coderslab.plain.User;
 import pl.coderslab.utlis.DatabaseUtils;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class ExerciseDao {
 
@@ -16,7 +18,7 @@ public class ExerciseDao {
             "UPDATE exercise SET title = ?, description = ? where id = ?";
         private static final String DELETE_EXERCISE_QUERY =
             "DELETE FROM exercise WHERE id = ?";
-        private static final String FIND_ALL_EXERCISE_BY_USER_ID_QUERY =
+        private static final String FIND_ALL_EXERCISE_QUERY =
             "SELECT * FROM exercise";
 
         public Exercise create(Exercise exercise) {
@@ -84,10 +86,10 @@ public class ExerciseDao {
 
       }
 
-      public Exercise[] findAllBySolutionId (int exerciseId) {
+      public Exercise[] findAllByExerciseId (int exerciseId) {
         try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
             Exercise [] exercises = new Exercise[0];
-            PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISE_BY_USER_ID_QUERY);
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISE_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Exercise exercise = new Exercise();
@@ -100,5 +102,65 @@ public class ExerciseDao {
         } catch (SQLException e) {
             e.printStackTrace(); return null;
         }
-       }
+      }
+
+       public static void exerciseStart () {
+           try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+               String input = null;
+               do {
+               PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISE_QUERY);
+               ResultSet resultSet = statement.executeQuery();
+
+                   System.out.println("Oto lista wszystkich zadań");
+                   DatabaseUtils.print(resultSet, "id", "title", "description");
+                   System.out.println("Wybierz jedną z opcji: \n" +
+                           "\"add\" - dodanie zadania \n" +
+                           "\"edit\" - edycja zadania \n" +
+                           "\"delete\" - usunięcie zadania\n" +
+                           "\"quit\" - zakończenie programu");
+                   Scanner scanner = new Scanner(System.in);
+                   input = scanner.nextLine();
+                   if (input.equals("add")){
+                       Exercise exercise = new Exercise();
+                       System.out.print("Podaj tytuł: ");
+                       exercise.setTitle(scanner.nextLine());
+                       System.out.print("Podaj opis: ");
+                       exercise.setDescription(scanner.nextLine());
+
+                       ExerciseDao exerciseDao = new ExerciseDao();
+                       exerciseDao.create(exercise);
+
+                   } else if (input.equals("edit")){
+                       Exercise exercise = new Exercise();
+                       System.out.print("Podaj id zadania do zmiany: ");
+                       exercise.setId(scanner.nextInt());
+                       scanner.nextLine();
+                       System.out.print("Zmień tytuł: ");
+                       exercise.setTitle(scanner.nextLine());
+                       System.out.print("Zmień opis: ");
+                       exercise.setDescription(scanner.nextLine());
+
+                       ExerciseDao exerciseDao = new ExerciseDao();
+                       exerciseDao.update(exercise);
+
+                   } else if (input.equals("delete")){
+                       Exercise exercise = new Exercise();
+                       System.out.print("Podaj ID zadania, które chcesz usunąć: ");
+                       exercise.setId(scanner.nextInt());
+
+                       ExerciseDao exerciseDao = new ExerciseDao();
+                       exerciseDao.delete(exercise.getId());
+                   } else {
+                       System.out.println("Niepoprawne polecenie\n");
+                   }
+
+
+               } while (!input.equals("quit"));
+
+           }catch (SQLException e ) {
+               e.printStackTrace();
+         }
+
+
+    }
 }
