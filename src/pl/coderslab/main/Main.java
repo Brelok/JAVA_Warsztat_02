@@ -70,7 +70,6 @@ public class Main {
         Exercise exercise = new Exercise("rkłdaf", "adfadf");
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        exerciseDao.create(exercise);
         System.out.println(exerciseDao.read(2));
         exerciseDao.delete(2);
 
@@ -80,6 +79,7 @@ public class Main {
         System.out.println(userGroupDao.read(2));
         userGroupDao.findAllBySolutionId(2);
         System.out.println(solutionDao.findAllByUserId(30));
+        System.out.println(solutionDao.findAllByExerciseId(1));
 
 
 
