@@ -1,18 +1,17 @@
 package pl.coderslab.plain;
 
-public class Group {
-
-    public Group () {
-
-    }
-
-    public Group(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+public class UserGroup {
 
     private int id;
     private String name;
+
+
+    public UserGroup () {
+    }
+
+    public UserGroup (String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;

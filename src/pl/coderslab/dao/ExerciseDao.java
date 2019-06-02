@@ -1,7 +1,6 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.plain.Exercise;
-import pl.coderslab.plain.Solution;
 import pl.coderslab.utlis.DatabaseUtils;
 
 import java.sql.*;

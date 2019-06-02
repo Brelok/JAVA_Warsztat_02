@@ -3,9 +3,11 @@ package pl.coderslab.main;
 import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.dao.SolutionDao;
 import pl.coderslab.dao.UserDao;
+import pl.coderslab.dao.UserGroupDao;
 import pl.coderslab.plain.Exercise;
 import pl.coderslab.plain.Solution;
 import pl.coderslab.plain.User;
+import pl.coderslab.plain.UserGroup;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -68,6 +70,12 @@ public class Main {
         exerciseDao.create(exercise);
         System.out.println(exerciseDao.read(2));
         exerciseDao.delete(2);
+
+        UserGroup userGroup = new UserGroup("the best");
+        UserGroupDao userGroupDao = new UserGroupDao();
+        userGroupDao.create(userGroup);
+        System.out.println(userGroupDao.read(2));
+        userGroupDao.findAllBySolutionId(2);
 
 
 
