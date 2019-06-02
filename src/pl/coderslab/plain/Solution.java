@@ -12,19 +12,17 @@ public class Solution {
     private String created;
     private String updated;
     private String description;
-    private int excersiseId;
+    private int exerciseId;
     private int userId;
 
     public Solution () {
-
     }
 
-    public Solution(int id, String created, String updated, String description, int excersiseId, int userId) {
-        this.id = id;
+    public Solution(String created, String updated, String description, int excersiseId, int userId) {
         this.created = created;
         this.updated = updated;
         this.description = description;
-        this.excersiseId = excersiseId;
+        this.exerciseId = excersiseId;
         this.userId = userId;
     }
 
@@ -60,12 +58,12 @@ public class Solution {
         this.description = description;
     }
 
-    public int getExcersiseId() {
-        return excersiseId;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExcersiseId(int excersiseId) {
-        this.excersiseId = excersiseId;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
     public int getUserId() {
@@ -83,7 +81,7 @@ public class Solution {
                 ", created='" + created + '\'' +
                 ", updated='" + updated + '\'' +
                 ", description='" + description + '\'' +
-                ", excersiseId=" + excersiseId +
+                ", excersiseId=" + exerciseId +
                 ", userId=" + userId +
                 '}';
     }
