@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-//        User user = new User("Jan Kowalski", "Jan.Kowalski@gmail.com", "tajne", 1);
+        User user = new User("Jan Kowalski", "Jan.Kowalski@gmail.com", "tajne", 1);
 //        User user1 = new User("Adam Kowalski", "adam.Kowalski@gmail.com", "tajne", 1);
 //        User user2 = new User("Robert Kowalski", "robert.Kowalski@gmail.com", "tajne", 1);
 //
@@ -78,8 +78,9 @@ public class Main {
         userGroupDao.create(userGroup);
         System.out.println(userGroupDao.read(2));
         userGroupDao.findAllBySolutionId(2);
-        System.out.println(solutionDao.findAllByUserId(30));
-        System.out.println(solutionDao.findAllByExerciseId(1));
+        System.out.println(solution.findAllByUserId(30));
+        System.out.println(solution.findAllByExerciseId(1));
+        System.out.println(user.findAll(1));
 
 
 
