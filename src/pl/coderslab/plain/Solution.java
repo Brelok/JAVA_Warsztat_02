@@ -1,12 +1,15 @@
 package pl.coderslab.plain;
 
+import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.utlis.DatabaseUtils;
+import sun.awt.SunToolkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Solution {
     private int id;
@@ -15,12 +18,13 @@ public class Solution {
     private String description;
     private int exerciseId;
     private int userId;
-        private static final String FIND_ALL_SOLUTION_BY_USER_ID_QUERY =
+    private static final String FIND_ALL_SOLUTION_BY_USER_ID_QUERY =
             "SELECT * FROM solution WHERE user_id = ?";
-        private static final String FIND_ALL_SOLUTION_BY_EXERCISE_ID_QUERY =
+    private static final String FIND_ALL_SOLUTION_BY_EXERCISE_ID_QUERY =
             "SELECT * FROM solution WHERE exercise_id = ? ORDER BY created DESC";
 
-    public Solution () {
+
+    public Solution() {
     }
 
     public Solution(String created, String updated, String description, int excersiseId, int userId) {
@@ -90,53 +94,59 @@ public class Solution {
                 ", userId=" + userId +
                 '}';
     }
-        private Solution [] addToArray(Solution solution, Solution[] solutions) {
+
+    private Solution[] addToArray(Solution solution, Solution[] solutions) {
         Solution[] tmpSolution = Arrays.copyOf(solutions, solutions.length + 1);
         tmpSolution[solutions.length] = solution;
         return tmpSolution;
 
     }
-           public Solution [] findAllByUserId (int userId) {
-           try (Connection connection = DatabaseUtils.getConnection("java_warsztat_2")) {
-               Solution[] solutions = new Solution[0];
-               PreparedStatement statement = connection.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
-               statement.setInt(1, userId);
-               ResultSet resultSet = statement.executeQuery();
-               while (resultSet.next()) {
-                   Solution solution = new Solution();
-                   solution.setId(resultSet.getInt("id"));
-                   solution.setCreated(resultSet.getString("created"));
-                   solution.setUpdated(resultSet.getString("updated"));
-                   solution.setDescription(resultSet.getString("description"));
-                   solution.setExerciseId(resultSet.getInt("exercise_id"));
-                   solution.setUserId(resultSet.getInt("user_id"));
-                   solutions = addToArray(solution, solutions);
-               }
-               return solutions;
-           }catch (SQLException e ) {
-               e.printStackTrace(); return  null;
-           }
-       }
 
-           public Solution [] findAllByExerciseId (int exerciseId) {
-           try (Connection connection = DatabaseUtils.getConnection("java_warsztat_2")) {
-               Solution[] solutions = new Solution[0];
-               PreparedStatement statement = connection.prepareStatement(FIND_ALL_SOLUTION_BY_EXERCISE_ID_QUERY);
-               statement.setInt(1, exerciseId);
-               ResultSet resultSet = statement.executeQuery();
-               while (resultSet.next()) {
-                   Solution solution = new Solution();
-                   solution.setId(resultSet.getInt("id"));
-                   solution.setCreated(resultSet.getString("created"));
-                   solution.setUpdated(resultSet.getString("updated"));
-                   solution.setDescription(resultSet.getString("description"));
-                   solution.setExerciseId(resultSet.getInt("exercise_id"));
-                   solution.setUserId(resultSet.getInt("user_id"));
-                   solutions = addToArray(solution, solutions);
-               }
-               return solutions;
-           }catch (SQLException e ) {
-               e.printStackTrace(); return  null;
-           }
-       }
+    public Solution[] findAllByUserId(int userId) {
+        try (Connection connection = DatabaseUtils.getConnection("java_warsztat_2")) {
+            Solution[] solutions = new Solution[0];
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_SOLUTION_BY_USER_ID_QUERY);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Solution solution = new Solution();
+                solution.setId(resultSet.getInt("id"));
+                solution.setCreated(resultSet.getString("created"));
+                solution.setUpdated(resultSet.getString("updated"));
+                solution.setDescription(resultSet.getString("description"));
+                solution.setExerciseId(resultSet.getInt("exercise_id"));
+                solution.setUserId(resultSet.getInt("user_id"));
+                solutions = addToArray(solution, solutions);
+            }
+            return solutions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Solution[] findAllByExerciseId(int exerciseId) {
+        try (Connection connection = DatabaseUtils.getConnection("java_warsztat_2")) {
+            Solution[] solutions = new Solution[0];
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_SOLUTION_BY_EXERCISE_ID_QUERY);
+            statement.setInt(1, exerciseId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Solution solution = new Solution();
+                solution.setId(resultSet.getInt("id"));
+                solution.setCreated(resultSet.getString("created"));
+                solution.setUpdated(resultSet.getString("updated"));
+                solution.setDescription(resultSet.getString("description"));
+                solution.setExerciseId(resultSet.getInt("exercise_id"));
+                solution.setUserId(resultSet.getInt("user_id"));
+                solutions = addToArray(solution, solutions);
+            }
+            return solutions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

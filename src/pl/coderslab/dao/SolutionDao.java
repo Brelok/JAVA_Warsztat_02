@@ -1,10 +1,13 @@
 package pl.coderslab.dao;
 
+import pl.coderslab.plain.Exercise;
 import pl.coderslab.plain.Solution;
 import pl.coderslab.utlis.DatabaseUtils;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class SolutionDao {
 
@@ -18,6 +21,10 @@ public class SolutionDao {
             "DELETE FROM solution WHERE id = ?";
         private static final String FIND_ALL_SOLUTION_BY_SOLUTION_ID_QUERY =
             "SELECT * FROM solution";
+        private static final String FIND_ALL_USER_QUERY =
+            "SELECT * FROM user";
+    private static final String FIND_ALL_EXERCISE_QUERY =
+            "SELECT * FROM exercise";
 
 
        public Solution create(Solution solution) {
@@ -114,6 +121,56 @@ public class SolutionDao {
             e.printStackTrace(); return null;
         }
        }
+    public static void solutionStart() {
+        try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
+            String input = null;
+            while (true) {
+                System.out.println("Wybierz jedną z opcji: \n" +
+                        "\"add\" - przypisywanie zadań do użytkownika \n" +
+                        "\"view\" - przeglądanie rozwiązań danego użytkownika \n" +
+                        "\"quit\" - zakończenie programu");
+                Scanner scanner = new Scanner(System.in);
+                input = scanner.nextLine();
+                if (input.equals("add")) {
+                    PreparedStatement statement = conn.prepareStatement(FIND_ALL_USER_QUERY);
+                    ResultSet resultSet = statement.executeQuery();
+                    System.out.println("Oto wszyscy użytkownicy: ");
+                    DatabaseUtils.print(resultSet, "id", "name", "email", "password", "user_group_id");
+                    System.out.print("Któremu użytkownikowu przypisać zadanie?: ");
+                    int userId = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Oto lista zadań: ");
+                    PreparedStatement statement1 = conn.prepareStatement(FIND_ALL_EXERCISE_QUERY);
+                    ResultSet resultSet1 = statement1.executeQuery();
+                    DatabaseUtils.print(resultSet, "id", "title", "description");
+                    System.out.print("Które zadania przypisać?: ");
+                    int exerciseId = scanner.nextInt();
+//                    String currentDate = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss").format(new Date().toString());// wstawienie aktualnej daty
+//                    Solution solution = new SolutionDao();
+                    // należy stworzyć nowy obiekt solution, pobrać wprowadzone id exercise i id user
 
+                } else if (input.equals("view")) {
+                    Exercise exercise = new Exercise();
+                    System.out.print("Podaj id zadania do zmiany: ");
+                    exercise.setId(scanner.nextInt());
+                    scanner.nextLine();
+                    System.out.print("Zmień tytuł: ");
+                    exercise.setTitle(scanner.nextLine());
+                    System.out.print("Zmień opis: ");
+                    exercise.setDescription(scanner.nextLine());
+
+                    ExerciseDao exerciseDao = new ExerciseDao();
+                    exerciseDao.update(exercise);
+
+                } else if (input.equals("quit")) {
+                    break;
+                } else {
+                    System.out.println("Niepoprawne polecenie\n");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
