@@ -1,6 +1,5 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.plain.Exercise;
 import pl.coderslab.plain.UserGroup;
 import pl.coderslab.utlis.DatabaseUtils;
 

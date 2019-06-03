@@ -8,6 +8,7 @@ import pl.coderslab.plain.Exercise;
 import pl.coderslab.plain.Solution;
 import pl.coderslab.plain.User;
 import pl.coderslab.plain.UserGroup;
+import pl.coderslab.plain.Start;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import static pl.coderslab.dao.ExerciseDao.exerciseStart;
 import static pl.coderslab.dao.UserDao.userStart;
 import static pl.coderslab.dao.UserGroupDao.userGroupStart;
+import static pl.coderslab.plain.Start.startProgram;
 
 
 public class Main {
@@ -87,11 +89,9 @@ public class Main {
 //        System.out.println(solution.findAllByExerciseId(1));
 //        System.out.println(user.findAll(1));
 
+            startProgram();
 
 
-//          userStart();
-//        exerciseStart();
-        userGroupStart();
 
 
 
