@@ -107,7 +107,7 @@ public class ExerciseDao {
        public static void exerciseStart () {
            try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
                String input = null;
-               do {
+               while (true) {
                PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISE_QUERY);
                ResultSet resultSet = statement.executeQuery();
 
@@ -150,17 +150,15 @@ public class ExerciseDao {
 
                        ExerciseDao exerciseDao = new ExerciseDao();
                        exerciseDao.delete(exercise.getId());
+                   } else if (input.equals("quit")) {
+                       break;
                    } else {
                        System.out.println("Niepoprawne polecenie\n");
                    }
-
-
-               } while (!input.equals("quit"));
+               }
 
            }catch (SQLException e ) {
                e.printStackTrace();
          }
-
-
     }
 }

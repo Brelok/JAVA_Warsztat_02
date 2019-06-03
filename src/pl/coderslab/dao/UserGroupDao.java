@@ -101,7 +101,7 @@ public class UserGroupDao {
     public static void userGroupStart () {
            try (Connection conn = DatabaseUtils.getConnection("java_warsztat_2")) {
                String input = null;
-               do {
+               while (true) {
                PreparedStatement statement = conn.prepareStatement(FIND_ALL_USER_GROUP_BY_USER_GROUP_ID_QUERY);
                ResultSet resultSet = statement.executeQuery();
 
@@ -138,11 +138,12 @@ public class UserGroupDao {
 
                        UserGroupDao userGroupDao = new UserGroupDao();
                        userGroupDao.delete(userGroup.getId());
+                   } else if (input.equals("quit")) {
+                       break;
                    } else {
                        System.out.println("Niepoprawne polecenie\n");
                    }
-
-               } while (!input.equals("quit"));
+               }
 
            }catch (SQLException e ) {
                e.printStackTrace();
