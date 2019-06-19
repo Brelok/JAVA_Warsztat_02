@@ -117,7 +117,7 @@ public class ExerciseDao {
                            "\"add\" - dodanie zadania \n" +
                            "\"edit\" - edycja zadania \n" +
                            "\"delete\" - usunięcie zadania\n" +
-                           "\"quit\" - zakończenie programu");
+                           "\"esc\" - wróć do menu głównego");
                    Scanner scanner = new Scanner(System.in);
                    input = scanner.nextLine();
                    if (input.equals("add")){
@@ -150,7 +150,7 @@ public class ExerciseDao {
 
                        ExerciseDao exerciseDao = new ExerciseDao();
                        exerciseDao.delete(exercise.getId());
-                   } else if (input.equals("quit")) {
+                   } else if (input.equals("esc")) {
                        break;
                    } else {
                        System.out.println("Niepoprawne polecenie\n");

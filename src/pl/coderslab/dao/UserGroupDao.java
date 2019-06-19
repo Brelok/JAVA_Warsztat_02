@@ -111,7 +111,7 @@ public class UserGroupDao {
                            "\"add\" - dodanie nowej grupy \n" +
                            "\"edit\" - edycja grupy \n" +
                            "\"delete\" - usunięcie grupy\n" +
-                           "\"quit\" - zakończenie programu");
+                           "\"esc\" - wróć do menu głównego");
                    Scanner scanner = new Scanner(System.in);
                    input = scanner.nextLine();
                    if (input.equals("add")){
@@ -127,6 +127,8 @@ public class UserGroupDao {
                        System.out.print("Podaj id grupy do zmiany: ");
                        userGroup.setId(scanner.nextInt());
                        scanner.nextLine();
+                       System.out.print("Podaj nowy opis grupy: ");
+                       userGroup.setName(scanner.nextLine());
 
                        UserGroupDao userGroupDao = new UserGroupDao();
                        userGroupDao.update(userGroup);
@@ -138,7 +140,7 @@ public class UserGroupDao {
 
                        UserGroupDao userGroupDao = new UserGroupDao();
                        userGroupDao.delete(userGroup.getId());
-                   } else if (input.equals("quit")) {
+                   } else if (input.equals("esc")) {
                        break;
                    } else {
                        System.out.println("Niepoprawne polecenie\n");

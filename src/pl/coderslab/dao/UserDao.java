@@ -126,7 +126,7 @@ public class UserDao {
                            "\"add\" - dodanie użytkownika \n" +
                            "\"edit\" - edycja użytkownika \n" +
                            "\"delete\" - usunięcie użytkownika\n" +
-                           "\"quit\" - zakończenie programu");
+                           "\"esc\" - wróć do menu głównego");
                    Scanner scanner = new Scanner(System.in);
                    input = scanner.nextLine();
                    if (input.equals("add")) {
@@ -166,7 +166,7 @@ public class UserDao {
                        user.setId(scanner.nextInt());
                        UserDao userDao = new UserDao();
                        userDao.delete(user.getId());
-                   } else if (input.equals("quit")) {
+                   } else if (input.equals("esc")) {
                        break;
                     }else {
                        System.out.println("Niepoprawne polecenie\n");

@@ -11,7 +11,9 @@ import pl.coderslab.plain.UserGroup;
 import pl.coderslab.plain.Start;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import static pl.coderslab.dao.ExerciseDao.exerciseStart;
 import static pl.coderslab.dao.UserDao.userStart;
@@ -88,6 +90,10 @@ public class Main {
 //        System.out.println(solution.findAllByUserId(30));
 //        System.out.println(solution.findAllByExerciseId(1));
 //        System.out.println(user.findAll(1));
+//        SolutionDao solutionDao = new SolutionDao();
+//        solutionDao.readAllByUserId(31);
+
+
 
             startProgram();
 
